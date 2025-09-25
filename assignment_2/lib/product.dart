@@ -1,30 +1,44 @@
 class Product {
-  final String id;
-  final String name;
-  final double price;
-  final String imageUrl;
-  final List<String> categories;
-  final bool isAvailable;
+  String name;
+  String category;
+  double price;
+  int stock;
 
   Product({
-    required this.id,
     required this.name,
+    required this.category,
     required this.price,
-    required this.imageUrl,
-    this.categories = const [],
-    this.isAvailable = true,
+    this.stock = 0,
   });
 
-  String getDisplayPrice() {
-    return 'Rp ${price.toStringAsFixed(0)}';
+  factory Product.create(String name, String category, double price) {
+    return Product(
+      name: name,
+      category: category,
+      price: price,
+    );
   }
 
-  bool isInCategory(String category) {
-    return categories.contains(category.toLowerCase());
+  bool get isAvailable => stock > 0;
+
+  String get formattedPrice => 'Rp ${price.toStringAsFixed(0)}';
+
+  void addStock(int quantity) {
+    if (quantity > 0) {
+      stock += quantity;
+    }
+  }
+
+  bool reduceStock(int quantity) {
+    if (quantity > 0 && quantity <= stock) {
+      stock -= quantity;
+      return true;
+    }
+    return false;
   }
 
   @override
   String toString() {
-    return '$name - ${categories.toString()} - $price';
+    return '$name - $category - $formattedPrice (Stock: $stock)';
   }
 }
