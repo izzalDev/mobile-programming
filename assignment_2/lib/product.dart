@@ -19,7 +19,12 @@ class Product {
     return 'Rp ${price.toStringAsFixed(0)}';
   }
 
-	bool isInCategory(String category){
-		return categories.contains(category.toLowerCase());
-	}
+  bool isInCategory(String category) {
+    return categories.contains(category.toLowerCase());
+  }
+
+  @override
+  String toString() {
+    return '$name - ${categories.toString()} - $price';
+  }
 }
