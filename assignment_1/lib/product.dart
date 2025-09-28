@@ -5,11 +5,12 @@ class Product {
   int stock;
 
   Product({
-    required this.name,
-    required this.category,
+    required String name,
+    required String category,
     required this.price,
     this.stock = 0,
-  });
+  }) : name = name.toLowerCase(),
+       category = category.toLowerCase();
 
   factory Product.create(String name, String category, double price) {
     return Product(
