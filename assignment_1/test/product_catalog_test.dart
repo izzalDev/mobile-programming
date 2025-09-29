@@ -17,6 +17,7 @@ void main() {
       price: 150_000,
       stock: 50,
     );
+
     setUp(() {
       catalog = ProductCatalog();
     });
@@ -72,7 +73,7 @@ void main() {
         ..addProduct(p3);
       final categories = catalog.getCategories();
       expect(categories.length, 2);
-      expect(categories, containsAll(['electronics', 'buku']));
+      expect(categories, containsAll(['Electronics', 'Buku']));
     });
 
     test('display methods should not throw errors', () {

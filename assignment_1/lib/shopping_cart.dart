@@ -10,20 +10,13 @@ class ShoppingCart {
     if (quantity < 1) {
       throw ArgumentError("quantity cannot be less than 1");
     }
-
-    final newProduct = Product(
-      name: product.name.toLowerCase(),
-      category: product.category.toLowerCase(),
-      price: product.price,
-    );
-
-    _items.add(CartItem(product: newProduct, quantity: quantity));
+    _items.add(CartItem(product: product, quantity: quantity));
     return this;
   }
 
   ShoppingCart removeProduct(String productName) {
     _items.removeWhere(
-      (item) => item.product.name == productName.toLowerCase(),
+      (item) => item.product.name.toLowerCase() == productName.toLowerCase(),
     );
     return this;
   }
@@ -34,7 +27,7 @@ class ShoppingCart {
     }
 
     final item = _items.firstWhere(
-      (item) => item.product.name == productName.toLowerCase(),
+      (item) => item.product.name.toLowerCase() == productName.toLowerCase(),
       orElse: () => throw ArgumentError("Product not found in the cart"),
     );
 
@@ -53,7 +46,7 @@ class ShoppingCart {
 
   List<CartItem> getItemsByCategory(String category) {
     return _items
-        .where((item) => item.product.category == category.toLowerCase())
+        .where((item) => item.product.category.toLowerCase() == category.toLowerCase())
         .toList();
   }
 

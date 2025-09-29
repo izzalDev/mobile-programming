@@ -5,7 +5,6 @@ class ProductCatalog {
 
   void addProduct(Product product) {
     products.add(product);
-    print('Product "${product.name}" berhasil ditambahkan');
   }
 
   List<Product> getAllProducts() {
@@ -13,11 +12,9 @@ class ProductCatalog {
   }
 
   List<Product> getProductsByCategory(String category) {
-    return products
-        .where(
-          (product) => product.category.toLowerCase() == category.toLowerCase(),
-        )
-        .toList();
+    return products.where((product) {
+      return product.category.toLowerCase() == category.toLowerCase();
+    }).toList();
   }
 
   List<Product> getAvailableProducts() {
@@ -25,13 +22,14 @@ class ProductCatalog {
   }
 
   List<Product> searchProducts(String keyword) {
-    return products
-        .where(
-          (product) =>
-              product.name.toLowerCase().contains(keyword.toLowerCase()) ||
-              product.category.toLowerCase().contains(keyword.toLowerCase()),
-        )
-        .toList();
+    final searchKeyword = keyword.toLowerCase();
+    return products.where((product) {
+      final productName = product.name.toLowerCase();
+      final productCategory = product.category.toLowerCase();
+      final isNameMatch = productName.contains(searchKeyword);
+      final isCategoryMatch = productCategory.contains(searchKeyword);
+      return isNameMatch || isCategoryMatch;
+    }).toList();
   }
 
   List<String> getCategories() {
