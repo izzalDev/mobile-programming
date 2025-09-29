@@ -11,6 +11,7 @@ class ShoppingCart {
       throw ArgumentError("quantity cannot be less than 1");
     }
     _items.add(CartItem(product: product, quantity: quantity));
+		print('✓ ${product.name} ditambahkan ke cart (${quantity}x)');
     return this;
   }
 
@@ -160,28 +161,24 @@ class ShoppingCart {
       );
     }
     print('Total Items: ${_items.length}');
-    print('Subtotal: ${calculateSubtotal().toStringAsFixed(0)}');
+    print('Subtotal: Rp ${calculateSubtotal().toStringAsFixed(0)}');
   }
 
   void displayCartByCategory() {
     final grouped = groupItemsByCategory();
-    print("=== ISI KERANJANG BELANJA BERDASARKAN KATEGORI ===");
+    print("=== KERANJANG PER KATEGORI ===");
 
     grouped.forEach((category, items) {
-      print('Kategori: $category');
+      print('$category (${items.length} items):');
       for (int i = 0; i < items.length; i++) {
         final item = items[i];
         final product = item.product;
         final quantity = item.quantity;
         print(
-          '  ${i + 1}. ${product.name} - ${product.formattedPrice} x$quantity = Rp ${item.totalPrice.toStringAsFixed(0)}',
+          '  • ${product.name} - ${product.formattedPrice} x$quantity = Rp ${item.totalPrice.toStringAsFixed(0)}',
         );
       }
-      print('---');
     });
-
-    print('Total Items: ${_items.length}');
-    print('Subtotal: ${calculateSubtotal().toStringAsFixed(0)}');
   }
 
   String exportToText() {
